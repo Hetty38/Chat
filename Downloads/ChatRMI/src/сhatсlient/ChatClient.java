@@ -22,26 +22,39 @@ public class ChatClient {
        c.name = s.nextLine().trim();
         System.out.println("Расскажите о себе");
        c.description=s.nextLine().trim();
-        stub.reg(c);
+       if (!stub.getClients().containsKey(c.name))
+       {
+        stub.reg(c,c.name);}
         System.out.println("Вы присоединились к чату)");
-        stub.getAddress(c.name);//так же тестовый вызов. Предполагалось что этот метод будет работать при отправке личных сообщений
+
         System.out.println("Выберите команду: 1.Отсоединиться от чата 2. Отправить сообщение");
         int answer = s.nextInt();
         s.nextLine();
         if (answer==1)
         {
-            stub.disconnect(c);
+            stub.disconnect(c.name);
         }
 
        else if (answer==2) {
           System.out.println("Введите цифру: 1. Отправить сообщение всем 2. Отправить личное сообщение конкретному пользователю");
-          if (s.nextInt() == 1) {
-              s.nextLine();
+          int answ= s.nextInt();
+            s.nextLine();
+          if (answ == 1) {
               System.out.println("Введите сообщение:)");
               msg = s.nextLine();
               stub.sendMessage(msg, c.name);
           }
-         //   }
+          else
+          {
+              System.out.println("Введите имя пользователя, которому Вы хотите отправить сообщение");
+              String n=s.nextLine().trim();
+              System.out.println("Введите сообщение:)");
+              msg = s.nextLine().trim();
+              stub.sendPrivateMessage(msg,n);
+
+          }
+
+
         }
 //        }
     //    String msg= s.nextLine();

@@ -1,54 +1,54 @@
 package chatserver;
-
-import сhatсlient.Client;
 import сhatсlient.IClient;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
-import java.util.List;
+public class Server extends UnicastRemoteObject implements IServer {
+    public ConcurrentMap<String, IClient> clients;
 
-public class Server extends UnicastRemoteObject implements IServer{
-   public List<IClient> clients;
-    public Server(List<IClient> clients) throws RemoteException
-    {
-        this.clients = clients;//Временно пока не разберусь с коллекциями
+    public ConcurrentMap<String, IClient> getClients() throws RemoteException{
+        return clients;
     }
+
+    @Override
+    public void sendPrivateMessage(String message, String nameClient) throws RemoteException {
+        for(Map.Entry<String,IClient> entry: clients.entrySet())
+        {
+
+            if (entry.getKey().equals(nameClient))
+               entry.getValue().printMessage (message + " "+ nameClient);
+
+        }
+    }
+
+    public Server(ConcurrentMap<String, IClient> clients) throws RemoteException{
+        this.clients = clients;
+    }
+
 
     @Override
 
     public void sendMessage(String message, String name) throws RemoteException {
-        for (IClient c:clients
-             ) {
-            c.printMessage(message+ "  "+ name);
+        for(ConcurrentMap.Entry<String,IClient> entry: clients.entrySet())
+        {
 
+           entry.getValue().printMessage (message + " "+ name);
         }
 
     }
 
     @Override
-    public void getAddress(String name) throws RemoteException { //тестовый вариант. потом он будет возрвращать id и коллекция будет concurrenrMap
-        for (IClient c:clients) {
-
-            if (c.getName()==name)
-            {
-                System.out.println(c.getId());
-            }
-            else System.out.println("Не работает");
-
-        }
-    }
-
-
-    @Override
-    public void reg(IClient server) throws RemoteException {
-       clients.add(server);
+    public void reg(IClient server, String name) throws RemoteException {
+        clients.put(name, server);
     }
 
     @Override
-    public void disconnect(IClient server) throws RemoteException {
-        clients.remove(server);
+    public void disconnect(String name) throws RemoteException {
+        clients.remove(name);
     }
 
 
 }
+

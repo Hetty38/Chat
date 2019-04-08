@@ -12,7 +12,7 @@ public class Client extends UnicastRemoteObject implements IClient{
     public String name;
     public String description;
     //public int id;
-   public UUID id = UUID.randomUUID();
+
 
     private static final long serialVersionUID = 1L;
 
@@ -40,10 +40,7 @@ public class Client extends UnicastRemoteObject implements IClient{
         return this.name;
     }
 
-    @Override
-    public UUID getId() throws RemoteException {
-        return this.id;
-    }
+
 
  /*   @Override
     public List<Message> getAllMessages() throws RemoteException {
