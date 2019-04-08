@@ -1,4 +1,4 @@
-package ChatServer;
+package chatserver;
 
 
 
@@ -22,20 +22,8 @@ public class ChatServer {
     }
 }
 
-/*
-            while(true){
-                String msg=s.nextLine().trim();
-                if (server.getClient()!=null){
-                    ChatInterface client=server.getClient();
-                    msg="["+server.getName()+"] "+msg;
-                    client.sendMessage(msg);
-                }
-            }
 
 
 
-    }
-}
-}
-*/
+
 

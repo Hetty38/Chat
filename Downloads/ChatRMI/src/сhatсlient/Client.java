@@ -1,18 +1,21 @@
-package ChatClient;
+package сhatсlient;
 
-import ChatServer.IServer;
+import chatserver.IServer;
 
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
+import java.util.UUID;
 
 
 public class Client extends UnicastRemoteObject implements IClient{
     public String name;
-    public IClient client = null;
+    public String description;
+    //public int id;
+   public UUID id = UUID.randomUUID();
+
     private static final long serialVersionUID = 1L;
-    private IServer server;
+
     public Client() throws RemoteException
     {}
 //    public Client (String name) throws RemoteException {
@@ -30,6 +33,16 @@ public class Client extends UnicastRemoteObject implements IClient{
     @Override
     public void printMessage(String message) throws RemoteException {
         System.out.println(message);
+    }
+
+    @Override
+    public String getName() throws RemoteException {
+        return this.name;
+    }
+
+    @Override
+    public UUID getId() throws RemoteException {
+        return this.id;
     }
 
  /*   @Override

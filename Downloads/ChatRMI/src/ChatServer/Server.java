@@ -1,12 +1,11 @@
-package ChatServer;
+package chatserver;
 
-import ChatClient.Client;
-import ChatClient.IClient;
+import сhatсlient.Client;
+import сhatсlient.IClient;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Server extends UnicastRemoteObject implements IServer{
@@ -18,15 +17,27 @@ public class Server extends UnicastRemoteObject implements IServer{
 
     @Override
 
-    public void sendMessage(String message) throws RemoteException {
+    public void sendMessage(String message, String name) throws RemoteException {
         for (IClient c:clients
              ) {
-            c.printMessage(message);
+            c.printMessage(message+ "  "+ name);
 
         }
 
     }
 
+    @Override
+    public void getAddress(String name) throws RemoteException { //тестовый вариант. потом он будет возрвращать id и коллекция будет concurrenrMap
+        for (IClient c:clients) {
+
+            if (c.getName()==name)
+            {
+                System.out.println(c.getId());
+            }
+            else System.out.println("Не работает");
+
+        }
+    }
 
 
     @Override

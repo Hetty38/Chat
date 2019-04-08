@@ -1,11 +1,15 @@
-package ChatClient;
+package сhatсlient;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.UUID;
 
 public interface IClient extends Remote{
-    public void sendMessage(String message) throws RemoteException;
-    public void printMessage(String message) throws RemoteException;
+   void sendMessage(String message) throws RemoteException;
+   void printMessage(String message) throws RemoteException;
+   String getName() throws RemoteException;
+    UUID getId() throws RemoteException;
+
     //  public List<Message> getAllMessages() throws RemoteException;
 
 //    public void setClient(IClient c) throws RemoteException;
