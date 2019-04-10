@@ -5,25 +5,22 @@ import chatserver.IServer;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 import java.util.UUID;
 
 
-public class Client extends UnicastRemoteObject implements IClient{
+public class Client extends UnicastRemoteObject implements IClient {
     public String name;
     public String description;
-    //public int id;
+    public IServer server;
 
 
     private static final long serialVersionUID = 1L;
 
-    public Client() throws RemoteException
-    {}
-//    public Client (String name) throws RemoteException {
-//        this.name = name;
-//    }
-//    public Client (IServer server) throws RemoteException {
-//        this.server = server;
-//    }
+    public Client(IServer server, String name) throws RemoteException {
+        this.name = name;
+        this.server = server;
+    }
 
     @Override
     public void sendMessage(String message) throws RemoteException {
@@ -40,24 +37,29 @@ public class Client extends UnicastRemoteObject implements IClient{
         return this.name;
     }
 
+    @Override
+    public void disconnect(String name) throws RemoteException {
+        server.getClients().remove(name);
+        System.out.println("Вы покинули чат");
+
+    }
 
 
- /*   @Override
-    public List<Message> getAllMessages() throws RemoteException {
-        return null;
-    }*/
+    @Override
+    public void connect(IClient client, String name) throws RemoteException {
 
-//    @Override
-//    public IClient getClient() throws RemoteException {
-//        return client;
-//    }
-//    @Override
-//    public String getName() throws RemoteException {
-//        return this.name;
-//    }
-//
-//    @Override
-//    public void setClient(IClient c) throws RemoteException {
-//        client=c;
-//    }
+        Scanner s = new Scanner(System.in);
+
+        while (server.getClients().containsKey(name)) {
+            System.out.println("К сожалению, такой логин уже занят! Придумайте и введите другой");
+            System.out.println("Введите имя");
+            name = s.nextLine();
+            continue;
+        }
+        server.reg(client, name);
+        System.out.println("Вы присоединились к чату)");
+
+    }
+
+
 }
