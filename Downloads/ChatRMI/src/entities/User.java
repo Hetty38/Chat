@@ -1,8 +1,9 @@
-package сhatсlient;
+package entities;
 
 public class User {
-    public String name;
-    public String description;
+    private String name;
+    private String description;
+
 
     public String getName() {
         return name;
@@ -18,5 +19,11 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.name;
     }
 }

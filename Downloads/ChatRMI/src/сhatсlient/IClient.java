@@ -1,30 +1,27 @@
 package сhatсlient;
 
 import chatserver.IServer;
+import entities.Message;
+import entities.PrivateMessage;
+import entities.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 
 public interface IClient extends Remote {
-    void sendMessage(String message) throws RemoteException;
+    void sendMessageAll(Message msg) throws RemoteException;
 
     void printMessage(String message) throws RemoteException;
 
-    String getName() throws RemoteException;
+    void disconnect() throws RemoteException;
 
-    void disconnect(String name) throws RemoteException;
+    void connect(IClient client) throws RemoteException;
 
-    void connect(IClient client, String name) throws RemoteException;
+    void sendPrivateMessage(PrivateMessage msg) throws RemoteException;
 
-
-    //  public List<Message> getAllMessages() throws RemoteException;
-
-//    public void setClient(IClient c) throws RemoteException;
-
-//    public IClient getClient() throws RemoteException;
-
-    //  public String getName() throws RemoteException;
+    List<String> getAllUsers() throws RemoteException;
 
 }
 

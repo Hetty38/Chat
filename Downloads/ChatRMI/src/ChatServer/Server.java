@@ -5,7 +5,6 @@ import сhatсlient.IClient;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 public class Server extends UnicastRemoteObject implements IServer {

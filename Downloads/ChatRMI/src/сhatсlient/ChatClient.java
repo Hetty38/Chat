@@ -2,13 +2,16 @@ package сhatсlient;
 
 
 import chatserver.IServer;
-import chatserver.Server;
+import entities.Message;
+import entities.PrivateMessage;
+import entities.User;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatClient {
@@ -16,49 +19,37 @@ public class ChatClient {
 
         Registry registry = LocateRegistry.getRegistry("127.0.0.1");
         IServer stub = (IServer) registry.lookup("Server");
-        User user = new User();
-        System.out.println("Введите имя");
+        Client c = new Client(stub);
         Scanner s = new Scanner(System.in);
-        user.name = s.nextLine().trim();
-        System.out.println("Расскажите о себе");
-        user.description = s.nextLine().trim();
-        Client c = new Client(stub, user.name);
         Message msg = new Message(stub);
         PrivateMessage pmsg = new PrivateMessage(stub);
-        System.out.println("Введите: exit-если хотите выйти из приложения, connect- если хотите присоединиться к чату");
+        System.out.println("Тут будет текст меню");
+//        System.out.println("Введите: exit-если хотите выйти из приложения, connect- если хотите присоединиться к чату");
+//        System.out.println("Введите: exit-если хотите выйти из приложения,disconnect - если хотите покинуть чат, " +
+//                "sendAll- если хотите отправить сообщение в общий чат, sendPrivate- если хотите отправить сообщение конкреному пользователю");
+
         while (true) {
             String command = s.nextLine();
             switch (command) {
+                case "connect":
+                    c.connect(c);
+                    break;
+                case "disconnect":
+                    c.disconnect();
+                    break;
+                case "sendAll":
+                    c.sendMessageAll(msg);
+                    break;
+                case "sendPrivate":
+                    c.sendPrivateMessage(pmsg);
+                    break;
                 case "exit":
-                    c.disconnect(user.name);
+                    c.disconnect();
                     System.exit(0);
                     break;
-                case "connect":
-                    c.connect(c, user.name);
-                    System.out.println("Введите: exit-если хотите выйти из приложения,disconnect - если хотите покинуть чат, " +
-                            "sendAll- если хотите отправить сообщение в общий чат, sendPrivate- если хотите отправить сообщение конкреному пользователю");
-                    String com = s.nextLine();
-                    switch (com) {
-                        case "disconnect":
-                            c.disconnect(user.name);
-                            break;
-                        case "sendAll":
-                            msg.send(user.name);
-                            break;
-                        case "sendPrivate":
-                            pmsg.send(user.name);
-                            break;
-                        case "exit":
-                            c.disconnect(user.name);
-                            System.exit(0);
-                            break;
-                        default:
-                            System.out.println("Вы ввели некорректную команду. Попробуйте заново");
-                    }
-                    break;
-
                 default:
                     System.out.println("Вы ввели некорректную команду. Попробуйте заново");
+                    break;
 
             }
 
