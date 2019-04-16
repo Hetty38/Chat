@@ -1,11 +1,12 @@
-package entities;
+package main.java.entities;
 
-import chatserver.IServer;
 
+import main.java.chatserver.IServer;
 
 public class Message {
     private String text;
     private IServer server;
+
     public Message(IServer server) {
         this.server = server;
     }
@@ -25,10 +26,6 @@ public class Message {
     public void setServer(IServer server) {
         this.server = server;
     }
-
-
-
-
 
 
 }

@@ -1,7 +1,8 @@
-package chatserver;
+package main.java.chatserver;
 
 
-import сhatсlient.IClient;
+
+import main.java.сhatсlient.IClient;
 
 import java.rmi.AlreadyBoundException;
 
@@ -16,6 +17,7 @@ public class ChatServer {
 
         IServer server = new Server(new ConcurrentHashMap<String, IClient>());
         try {
+           // System.setProperty("java.rmi.server.hostname","192.168.1.73");
             Registry registry = LocateRegistry.createRegistry(1099);
             registry.bind("Server", server);
         } catch (AlreadyBoundException e) {

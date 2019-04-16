@@ -1,6 +1,7 @@
-package entities;
+package main.java.entities;
 
-import chatserver.IServer;
+
+import main.java.chatserver.IServer;
 
 public class PrivateMessage extends Message {
     private String to;

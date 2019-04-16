@@ -1,9 +1,7 @@
-package сhatсlient;
+package main.java.сhatсlient;
 
-import chatserver.IServer;
-import entities.Message;
-import entities.PrivateMessage;
-import entities.User;
+import main.java.entities.Message;
+import main.java.entities.PrivateMessage;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -22,6 +20,8 @@ public interface IClient extends Remote {
     void sendPrivateMessage(PrivateMessage msg) throws RemoteException;
 
     List<String> getAllUsers() throws RemoteException;
+
+    void conAnotherLogin(IClient client) throws RemoteException;
 
 }
 

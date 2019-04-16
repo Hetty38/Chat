@@ -1,7 +1,6 @@
-package chatserver;
+package main.java.chatserver;
 
-import сhatсlient.Client;
-import сhatсlient.IClient;
+import main.java.сhatсlient.IClient;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
